@@ -1,0 +1,5 @@
+<div>
+  <% function listItems(array){ %> <% array.forEach(item =>{ %> <%-
+  include("./Filenode.ejs" , {item}) %> <% if(item.children.length > 0) { %> <%
+  listItems(item.children) %> <% }}) }%> <%= listItems(data) %>
+</div>

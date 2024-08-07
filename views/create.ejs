@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header><%- include("./Partials/nav.ejs") %></header>
+    <form onsubmit="return HandleCreateFile(event)">
+      <input type="text" name="path" />
+      <input type="text" name="name" />
+      <button>submit</button>
+    </form>
+    <script>
+      async function HandleCreateFile(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const values = {};
+        for (let [name, value] of formData.entries()) {
+          values[name] = value;
+        }
+        await fetch("http://localhost:3000/api/file/create", {
+          method: "POST",
+          body: JSON.stringify(values),
+          headers: { "Content-Type": "Application/json" },
+        });
+        console.log(values);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<div style="display: flex">
+  <a href=/details?path=<%=item.relativePath%> >
+    <%= item.relativePath %>
+  </a>
+  <button
+    onclick="Delete('<%= item.relativePath.replace(/\\/g, `\\\\`) %>')"
+  ></button>
+</div>
+<script>
+  async function Get(relativePath) {
+    
+    console.log(relativePath);
+    await fetch("http://localhost:3000/sendpath", {
+      method: "POST",
+      body: JSON.stringify({ relativePath }),
+      headers: { "Content-Type": "Application/json" },
+    });
+  }
+
+  async function Delete(relativePath) {
+    await fetch("http://localhost:3000/api/file/delete", {
+      method: "DELETE",
+      body: JSON.stringify({ relativePath }),
+      headers: { "Content-Type": "Application/json" },
+    });
+  }
+</script>
